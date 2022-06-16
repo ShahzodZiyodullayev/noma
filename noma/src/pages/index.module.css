@@ -1,0 +1,117 @@
+.leftSide {
+  overflow: hidden;
+  mix-blend-mode: multiply;
+  position: relative;
+  height: 100vh;
+}
+.gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #3076c0cb 40%, #05ffc1bb 100%);
+  z-index: 10;
+}
+.rightSide {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: relative;
+}
+.signInSignUp {
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 170px;
+  height: 130px;
+  left: -170px;
+}
+.activeBackground {
+  position: absolute;
+  background: white;
+  width: 100%;
+  height: 50%;
+  z-index: -1;
+  border-radius: 15px 0 0 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.activeBackground::after,
+.activeBackground::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 20px;
+  height: 50px;
+  z-index: -1;
+}
+.activeBackground::after {
+  border-radius: 0 0 15px 0;
+  box-shadow: 0 15px 0 0 white;
+  top: -50px;
+}
+.activeBackground::before {
+  border-radius: 0 15px 0 0;
+  box-shadow: 0 -15px 0 0 white;
+  bottom: -50px;
+}
+.isActive {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  font-weight: 700;
+  border-radius: 10px 0 0 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.mess {
+  background-size: cover;
+  background-clip: text;
+  -webkit-background-clip: text !important;
+  background: linear-gradient(45deg, #3076c0cb 10%, #05ffc1bb 100%);
+  color: transparent;
+}
+.submitBtn {
+  background: linear-gradient(45deg, #3076c0cb 40%, #05ffc1bb 100%);
+  margin: 40px 0;
+  position: relative;
+  color: white;
+  text-transform: capitalize;
+  border: none;
+  height: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.submitBtn::before {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  filter: blur(25px);
+  transform: translateY(30px) scale(0.9);
+  background: linear-gradient(45deg, #3076c0cb 40%, #05ffc1bb 100%);
+  transition: all 0.3s;
+}
+.submitBtn:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(25px);
+  transform: translateY(30px) scale(0.9);
+  background: linear-gradient(45deg, #3076c0cb 40%, #05ffc1bb 100%);
+}
