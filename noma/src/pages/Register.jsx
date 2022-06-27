@@ -203,8 +203,10 @@ function Register() {
             sx={{ m: isActive ? 0 : "20px 0" }}
           />
           <button type="submit" className="submitBtn">
-            <p className={isActive ? "login" : "createUser"}>Login</p>
-            <p className={isActive ? "login" : "createUser"}>Create User</p>
+            <div className="logRegContainer">
+              <p className={isActive ? "login" : "createUser"}>Login</p>
+              <p className={isActive ? "login" : "createUser"}>Create User</p>
+            </div>
           </button>
         </form>
         <ToastContainer />
