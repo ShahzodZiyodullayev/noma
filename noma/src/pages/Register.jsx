@@ -1,45 +1,111 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Grid, Typography, InputAdornment, TextField } from "@mui/material";
 import { Lock, User, Mail } from "react-feather";
-import styles from "./index.module.css";
+import "./style.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { registerRoute } from "../utils/APIRoutes";
 
 function Register() {
   const [isActive, setIsActive] = useState(true);
+  const [value, setValue] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("form");
+  const toastifyOption = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
   };
 
-  const handleChange = (e) => {};
+  const handleValidation = () => {
+    const { password, confirmPassword, username, email } = value;
+    if (password !== confirmPassword) {
+      toast.error(
+        "password and confirm pasword should be same.",
+        toastifyOption,
+      );
+      return false;
+    } else if (username.length < 3) {
+      toast.error(
+        "Username should be greater than 3 characters",
+        toastifyOption,
+      );
+      return false;
+    } else if (password.length < 8) {
+      toast.error(
+        "Password should be equal or greater than 8 characters",
+        toastifyOption,
+      );
+      return false;
+    } else if (email === "") {
+      toast.error("email is required", toastifyOption);
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (handleValidation()) {
+      const { password, username, email } = value;
+      const { data } = await axios.post(
+        "http://localhost:4000/api/auth/register",
+        {
+          username,
+          email,
+          password,
+        },
+      );
+      if (data.status === false) {
+        toast.error(data.msg, toastifyOption);
+      }
+      if (data.status === true) {
+        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+      }
+      navigate("/");
+    }
+  };
+
+  const handleChange = (e) => {
+    setValue({ ...value, [e.target.name]: e.target.value });
+  };
 
   const activate = (e) => {
     if ([...e.target.classList].includes("false")) {
       setIsActive(!isActive);
+    } else {
+      setIsActive(isActive);
     }
   };
 
   return (
     <Grid container>
-      <Grid item md={4} className={styles.leftSide}>
-        <Grid className={styles.gradient}></Grid>
+      <Grid item md={4} className={"leftSide"}>
+        <Grid className="gradient"></Grid>
         <img
           src={require("../assets/image/msg.jpg")}
           style={{ width: "100%" }}
         />
       </Grid>
-      <Grid item md={8} className={styles.rightSide}>
-        <Grid className={styles.signInSignUp}>
+      <Grid item md={8} className={"rightSide"}>
+        <Grid className="signInSignUp">
           <Grid
-            className={styles.activeBackground}
+            className={"activeBackground"}
             sx={{
               top: !isActive ? "50%" : 0,
             }}
           ></Grid>
           <Typography
             onClick={(e) => activate(e)}
-            className={`${styles.isActive} ${isActive}`}
+            className={`${"isActive"} ${isActive}`}
             fontSize={20}
             sx={{
               color: isActive ? "black" : "white",
@@ -50,7 +116,7 @@ function Register() {
           </Typography>
           <Typography
             onClick={(e) => activate(e)}
-            className={`${styles.isActive} ${!isActive}`}
+            className={`${"isActive"} ${!isActive}`}
             fontSize={20}
             sx={{
               color: !isActive ? "black" : "white",
@@ -60,15 +126,16 @@ function Register() {
             Sign Up
           </Typography>
         </Grid>
-        <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
+        <form onSubmit={(e) => handleSubmit(e)} className={"form"}>
           <Typography
-            className={styles.mess}
+            className="mess"
             fontFamily="Monoton, Cursive"
             fontSize="100px"
           >
             Message
           </Typography>
           <TextField
+            className={isActive ? "hide" : "show"}
             id="input-with-icon-textfield"
             placeholder="Username"
             type="text"
@@ -82,9 +149,10 @@ function Register() {
               ),
             }}
             variant="standard"
-            sx={{ m: "20px 0" }}
+            sx={{ m: isActive ? 0 : "20px 0" }}
           />
           <TextField
+            className="input"
             id="input-with-icon-textfield"
             placeholder="Email"
             type="email"
@@ -98,8 +166,10 @@ function Register() {
               ),
             }}
             variant="standard"
+            sx={{ m: "20px 0" }}
           />
           <TextField
+            className="input"
             id="input-with-icon-textfield"
             placeholder="Password"
             type="password"
@@ -116,9 +186,10 @@ function Register() {
             sx={{ m: "20px 0" }}
           />
           <TextField
+            className={isActive ? "hide" : "show"}
             id="input-with-icon-textfield"
             placeholder="Confirm Password"
-            type="pasword"
+            type="password"
             name="confirmPassword"
             onChange={(e) => handleChange(e)}
             InputProps={{
@@ -129,14 +200,14 @@ function Register() {
               ),
             }}
             variant="standard"
+            sx={{ m: isActive ? 0 : "20px 0" }}
           />
-          <button type="submit" className={styles.submitBtn}>
-            Create User
+          <button type="submit" className="submitBtn">
+            <p className={isActive ? "login" : "createUser"}>Login</p>
+            <p className={isActive ? "login" : "createUser"}>Create User</p>
           </button>
-          {/* <span>
-            Already have an account ? <Link to="/login">Login</Link>
-          </span> */}
         </form>
+        <ToastContainer />
       </Grid>
     </Grid>
   );

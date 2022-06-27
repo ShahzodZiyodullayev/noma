@@ -72,6 +72,7 @@
 .form {
   display: flex;
   flex-direction: column;
+  transition: all 0.5s;
 }
 .mess {
   background-size: cover;
@@ -84,7 +85,7 @@
   background: linear-gradient(45deg, #3076c0cb 40%, #05ffc1bb 100%);
   margin: 40px 0;
   position: relative;
-  color: white;
+  overflow: hidden;
   text-transform: capitalize;
   border: none;
   height: 50px;
@@ -114,4 +115,29 @@
   filter: blur(25px);
   transform: translateY(30px) scale(0.9);
   background: linear-gradient(45deg, #3076c0cb 40%, #05ffc1bb 100%);
+}
+.hide {
+  height: 0px;
+  opacity: 0;
+  transition: all 500ms ease-in-out;
+}
+.show {
+  height: 32px;
+  opacity: 1;
+  transition: all 500ms ease-in-out;
+}
+.submitBtn p {
+  margin: 36px 0;
+  color: white;
+}
+.submitBtn p:nth-child(1) {
+  margin-top: -40px;
+}
+.login {
+  transform: translateY(55px);
+  transition: 600ms;
+}
+.createUser {
+  transform: translateY(0);
+  transition: 600ms;
 }
