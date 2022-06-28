@@ -29,10 +29,30 @@ module.exports.login = async (req, res, next) => {
     const user = await User.findOne({ email });
     console.log(user);
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!user || !isPasswordValid) {
+    if (!user) {
+      return res.json({ msg: "Incorrect username or password", status: false });
+    }
+    if (!isPasswordValid) {
       return res.json({ msg: "Incorrect username or password", status: false });
     }
     return res.json({ status: true, user });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.setAvatar = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const avatarImage = req.body.image;
+    const userData = await User.findByIdAndUpdate(userId, {
+      isAvatarImageSet: true,
+      avatarImage,
+    });
+    return res.json({
+      isSet: userData.isAvatarImageSet,
+      image: userData.avatarImage,
+    });
   } catch (err) {
     next(err);
   }

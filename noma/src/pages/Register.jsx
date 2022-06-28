@@ -83,8 +83,9 @@ function Register() {
     }
   };
 
-  const createOrLoginUser = async (reqData, URL, req) => {
+  const createOrLoginUser = async (reqData, URL) => {
     const { data } = await axios.post(URL, reqData);
+    console.log("data", data);
     if (data.status === false) {
       toast.error(data.msg, toastifyOption);
     }
