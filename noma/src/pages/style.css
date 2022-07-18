@@ -1,4 +1,4 @@
-.leftSide {
+.leftS {
   overflow: hidden;
   mix-blend-mode: multiply;
   position: relative;
@@ -11,7 +11,7 @@
   background: linear-gradient(45deg, #3076c0cb 40%, #05ffc1bb 100%);
   z-index: 10;
 }
-.rightSide {
+.rightS {
   height: 100vh;
   display: flex;
   align-items: center;
@@ -178,9 +178,6 @@
   border-radius: 50%;
   border: 5px solid transparent;
 }
-.selected {
-  border: 5px solid white;
-}
 .loader {
   width: 100vw;
   height: 100vh;
@@ -205,8 +202,61 @@
   /* background-image: url("https://naked-science.ru/wp-content/uploads/2016/11/field_image_animals_under_water_jump_whale_041835_.jpg"); */
 }
 .content {
+  display: flex;
   width: 90%;
   height: 90vh;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
+}
+.leftSide {
+  position: relative;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.rightSide {
+  display: grid;
+  place-items: center;
+  width: 70%;
+  height: 100%;
+}
+.rightSide img {
+  width: 40%;
+}
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -5px;
+}
+.contact {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  transition: all 0.1s;
+}
+.selected {
+  background: red;
+  color: white;
+}
+.contact p,
+.myContact p {
+  font-size: 30px;
+  margin-left: 20px;
+}
+.myContact {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.currentUserText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

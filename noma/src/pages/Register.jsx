@@ -109,14 +109,14 @@ function Register() {
 
   return (
     <Grid container>
-      <Grid item md={4} className={"leftSide"}>
+      <Grid item md={4} className="leftS">
         <Grid className="gradient"></Grid>
         <img
           src={require("../assets/image/msg.jpg")}
           style={{ width: "100%" }}
         />
       </Grid>
-      <Grid item md={8} className={"rightSide"}>
+      <Grid item md={8} className="rightS">
         <Grid className="signInSignUp">
           <Grid
             className={"activeBackground"}

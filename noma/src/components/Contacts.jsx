@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import Logo from "../assets/logo/logo.png";
 import "../pages/style.css";
+import { Grid, Typography } from "@mui/material";
 
-function Contacts({ contacts, currentUser }) {
+function Contacts({ contacts, currentUser, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
@@ -15,13 +16,23 @@ function Contacts({ contacts, currentUser }) {
     }
   }, [currentUser]);
 
+  const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact);
+  };
+
   return (
-    <>
-      {currentUserImage && currentUserName && (
-        <div>
-          <div>
-            <img src={Logo} alt="logo" width="100px"/>
-            <h3>snappy</h3>
+    <Grid item md={3}>
+      {currentUserName && (
+        <div className="leftSide">
+          <div className="logoContainer">
+            <Typography
+              className="mess"
+              fontFamily="Monoton, Cursive"
+              fontSize="50px"
+            >
+              Message
+            </Typography>
           </div>
           <div>
             {contacts.map((contact, index) => (
@@ -30,6 +41,7 @@ function Contacts({ contacts, currentUser }) {
                   index === currentSelected ? "selected" : ""
                 }`}
                 key={index}
+                onClick={() => changeCurrentChat(index, contact)}
               >
                 <div>
                   <img
@@ -39,12 +51,12 @@ function Contacts({ contacts, currentUser }) {
                   />
                 </div>
                 <div>
-                  <h3>{contact.username}</h3>
+                  <p>{contact.username}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div>
+          <div className="myContact">
             <div>
               <img
                 src={`data:image/svg+xml;base64,${currentUserImage}`}
@@ -53,12 +65,12 @@ function Contacts({ contacts, currentUser }) {
               />
             </div>
             <div>
-              <h1>{currentUserName}</h1>
+              <p>{currentUserName}</p>
             </div>
           </div>
         </div>
       )}
-    </>
+    </Grid>
   );
 }
 
