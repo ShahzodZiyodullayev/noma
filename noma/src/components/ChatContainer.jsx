@@ -6,7 +6,9 @@ import ChatInput from "./ChatInput";
 import Messages from "./Messages";
 
 function ChatContainer({ currentChat }) {
-  const handleSendMsg = async (msg) => {};
+  const handleSendMsg = async (msg) => {
+    alert(msg);
+  };
 
   return (
     <Grid
