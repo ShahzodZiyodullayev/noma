@@ -44,8 +44,6 @@ function Chat() {
     setCurrentChat(chat);
   };
 
-  console.log();
-
   return (
     <div className="chat">
       <Grid container md={11} className="content">

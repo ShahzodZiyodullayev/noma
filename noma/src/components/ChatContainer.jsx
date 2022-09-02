@@ -11,11 +11,12 @@ function ChatContainer({ currentChat, currentUser }) {
   const [messages, setMessages] = useState([]);
 
   const getAllMessages = async () => {
-    const response = await axios.post(getAllMessagesRoute, {
-      from: currentUser._id,
-      to: currentChat._id,
-    });
-    setMessages(response.data.messages);
+    await axios
+      .post(getAllMessagesRoute, {
+        from: currentUser._id,
+        to: currentChat._id,
+      })
+      .then((data) => setMessages(data.data));
   };
 
   useEffect(() => {
@@ -57,18 +58,18 @@ function ChatContainer({ currentChat, currentUser }) {
         </Grid>
         <Logout />
       </Grid>
-      <div className="chat-messages">
+      <div className="messages">
         {messages.map((msg) => (
           <div>
             <div className={`message ${msg.fromSelf ? "sended" : "received"}`}>
-              <div className="content">
-                <p>{msg.message}</p>
+              <div className="mcontent">
+              <p>{msg.message}</p>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <Messages />
+      {/* <Messages /> */}
       <ChatInput handleSendMsg={handleSendMsg} />
     </Grid>
   );
