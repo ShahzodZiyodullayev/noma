@@ -22,9 +22,10 @@ module.exports.getAllMessage = async (req, res, next) => {
     console.log(from, to);
     const messages = await messageModel
       .find({
-        users: { $all: [{ from, to }] },
+        $all: [{ users: [{ from, to }] }, { users: [{ from: to, to: from }] }],
       })
       .sort({ createdAt: 1 });
+    console.log(messages);
     const projectMessages = messages.map((message) => {
       return {
         fromSelf: message.sender.toString() === from,
